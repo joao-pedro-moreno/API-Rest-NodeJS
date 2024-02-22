@@ -6,7 +6,14 @@ import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
 
 // Request body:  HTTPs => Criar ou editar algum recurso
 
-// Cookies <-> Formas de manter contexto entre requisições
+// Cookies -> Formas de manter contexto entre requisições
+
+// TESTES
+// - Unitários: unidade da sua aplicação
+// - Integração: comunicação entre duas ou mais unidades
+// - E2E -> ponta a ponta: simulam um usuário operando a aplicação (Chamadas HTTP, WebSockets)
+
+// Pirâmide de testes: E2E (não dependem de nenhuma tecnologia, não dependem de arquitetura)
 
 export async function transactionsRoutes(app: FastifyInstance) {
   app.get('/', { preHandler: [checkSessionIdExists] }, async (req) => {
