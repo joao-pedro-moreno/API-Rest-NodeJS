@@ -45,15 +45,15 @@ export async function transactionsRoutes(app: FastifyInstance) {
     return { transaction }
   })
 
-  app.get('/sumary', { preHandler: [checkSessionIdExists] }, async (req) => {
+  app.get('/summary', { preHandler: [checkSessionIdExists] }, async (req) => {
     const { sessionId } = req.cookies
 
-    const sumary = await knex('transactions')
+    const summary = await knex('transactions')
       .where('session_id', sessionId)
       .sum('amount', { as: 'amount' })
       .first()
 
-    return { sumary }
+    return { summary }
   })
 
   app.post('/', async (req, res) => {
@@ -65,7 +65,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
 
     const { title, amount, type } = createTransactionBodySchema.parse(req.body)
 
-    let sessionId = req.cookies.session_id
+    let sessionId = req.cookies.sessionId
 
     if (!sessionId) {
       sessionId = randomUUID()
